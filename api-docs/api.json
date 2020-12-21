@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Farmacias en Turno",
+    "description": "Esta es una API única y exclusivamente con fines de prueba para Consorcio. Mediante este recurso se especifican los metodos para obtener informacion correspondiente a las Farmacias de turno en la Región Metropolitana.",
+    "contact": {
+      "name": "Account of Developer",
+      "email": "mormazabal@hotmail.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://farmacias-consorcio.herokuapp.com/api",
+      "description": "Heroku Server"
+    },
+    {
+      "url": "http://localhost:3001/api",
+      "description": "Dev Server"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/dev-mormazabal/FarmaciasAPI/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "paths": {
+    "/comunas": {
+      "get": {
+        "tags": [
+          "Comunas"
+        ],
+        "description": "Obtiene todas las comunas de la región metropolitana",
+        "responses": {
+          "200": {
+            "description": "Success Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": {"message":"Error 404. Not found request"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/farmacias/": {
+      "get": {
+        "tags": [
+          "Farmacias"
+        ],
+        "description": "Obtiene la información por cada una de las farmacias. Se pueden agregar parametros opcionales para filtrar los resultados.",
+        "parameters": [
+          {
+            "name": "nombre_local",
+            "in": "query",
+            "description": "Nombre del Local",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "Cruz Verde"
+            }
+          },
+          {
+            "name": "comuna",
+            "in": "query",
+            "description": "Nombre de la comuna",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "La Cisterna"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/inline_response_200_1"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": {"message":"Error 404. Not found request"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "inline_response_200": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Santiago"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "properties": {
+          "comuna": {
+            "type": "string",
+            "example": "LA CISTERNA"
+          },
+          "nombre_local": {
+            "type": "string",
+            "example": "CRUZ VERDE"
+          },
+          "direccion": {
+            "type": "string",
+            "example": "AHUMADA 765"
+          },
+          "telefono": {
+            "type": "string",
+            "example": "+56225201458"
+          },
+          "latitud": {
+            "type": "string",
+            "example": "-33.406802"
+          },
+          "longitud": {
+            "type": "string",
+            "example": "-70.660646"
+          }
+        }
+      }
+    }
+  }
+}
